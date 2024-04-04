@@ -4,13 +4,44 @@
     "name": "Perfume",
     "desc": "Miguel Rousseouf",
     "value": "100.00",
-    "image": "https://img.irroba.com.br/fit-in/600x600/filters:fill(fff):quality(80)/volarium/catalog/produtos/volarium/perfume/perfume-feminino/perfume-feminino-ch-tradicional-importado-original.jpg"
+    "image": "https://img.irroba.com.br/fit-in/600x600/filters:fill(fff):quality(80)/volarium/catalog/produtos/volarium/perfume/perfume-feminino/perfume-feminino-ch-tradicional-importado-original.jpg",
+    "categoria": "Perfume",
+    "status": 1
   },
   {
     "id": 2,
     "name": "Colar",
     "desc": "Jand Karno em perolas",
     "value": "2200.00",
-    "image": "https://cdn.awsli.com.br/600x450/1537/1537341/produto/152389745/01e29e7fcc.jpg"
+    "image": "https://cdn.awsli.com.br/600x450/1537/1537341/produto/152389745/01e29e7fcc.jpg",
+    "categoria": "Colar",
+    "status": 1
+  },
+  {
+    "id": 3,
+    "name": "Perfume",
+    "desc": "Carolina Herrera",
+    "value": "585.00",
+    "image": "https://m.media-amazon.com/images/I/51VKjr+u84L._AC_UF1000,1000_QL80_.jpg",
+    "categoria": "Perfume",
+    "status": 0
+  },
+  {
+    "id": 4,
+    "name": "Anel",
+    "desc": "Pandora",
+    "value": "789.00",
+    "image": "https://waynejoias.com.br/cdn/shop/products/AnelCoracaoVermelhoCintilante.jpg?v=1673876966",
+    "categoria": "Anel",
+    "status": 1
+  },
+  {
+    "id": 5,
+    "name": "Brinco",
+    "desc": "Swarovski",
+    "value": "795.00",
+    "image": "https://m.media-amazon.com/images/I/41xG4uTexTL._AC_.jpg",
+    "categoria": "Brinco",
+    "status": 0
   }
 ]
