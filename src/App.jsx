@@ -1,15 +1,15 @@
+import produtos from './constants/produtos.json';
+import { api } from "./api/rmApi";
 import { useState, useEffect } from 'react';
+import { Card } from './components/Card';
 import { CardData } from './components/CardData';
 import { Alert } from './components/Alert';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Modal from './Modal';
-// import Tilt from 'react-tilt';
 import style from './App.module.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import "leaflet-defaulticon-compatibility";
-import { api } from "./api/rmApi";
-import produtos from './constants/produtos.json';
 
 function App() {
   const [show, setShow] = useState("");
@@ -17,9 +17,8 @@ function App() {
   const [page, setPage] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState(null); 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const position = [-25.424166329518574, -49.272255956756595];
+  const [selectedCharacterIndex, setSelectedCharacterIndex] = useState(null);
+  const position = [-25.424166329518574, -49.272255956756595]
 
   const handleOpenAlert = () => {
     setShowAlert(true);
@@ -29,17 +28,9 @@ function App() {
     setShowAlert(false);
   };
 
-  const defaultOptions = {
-    reverse:        false,  // reverse the tilt direction
-    max:            35,     // max tilt rotation (degrees)
-    perspective:    1000,   // Transform perspective, the lower the more extreme the tilt gets.
-    scale:          1.1,    // 2 = 200%, 1.5 = 150%, etc..
-    speed:          1000,   // Speed of the enter/exit transition
-    transition:     true,   // Set a transition on enter/exit.
-    axis:           null,   // What axis should be disabled. Can be X or Y.
-    reset:          true,    // If the tilt effect has to be reset on exit.
-    easing:         "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
-  }
+  const handleOpenModal = (index) => {
+    setSelectedCharacterIndex(index);
+  };
 
   useEffect(() => {
     api.get(`/character/?page=${page}&name=${nameFilter}`).then((response) => {
@@ -54,11 +45,6 @@ function App() {
       console.error(error);
     });
   }, [page, nameFilter]);
-
-  const openModal = (character) => {
-    setSelectedCharacter(character);
-    setIsModalOpen(true);
-  };
 
   return (
     <>
@@ -82,7 +68,14 @@ function App() {
             <h2>Showroom de produtos</h2>
             <div className={style.wrapCards}>
               {produtos.map((item) => (
-                <CardData key={item.id} name={item.name} desc={item.desc} value={item.value} image={item.image} />
+                <Card
+                  key={item.id}
+                  name={item.name}
+                  desc={item.desc}
+                  value={item.value}
+                  image={item.image}
+                  status={item.status}
+                />
               ))}
             </div>
           </>
@@ -91,19 +84,23 @@ function App() {
           <>
             <h2>Rick and Morty API</h2>
             <div className={style.wrapCardsData}>
-              {data.map((item) => (
-                <Tilt key={item.id} options={defaultOptions}>
-                  <div className={style.card} onClick={() => openModal(item)}>
+              {data.map((item, index) => {
+                return (
+                  <div style={{display: 'flex', flexDirection:'column', alignItems: 'center'}} key={item.id}>
                     <CardData name={item.name} desc={item.species} value={item.gender} image={item.image} />
+                    <button onClick={() => handleOpenModal(index)}>Info</button>
                   </div>
-                </Tilt>
-              ))}
+                );
+              })}
             </div>
           </>
         }
+        {selectedCharacterIndex !== null && (
+          <Modal character={data[selectedCharacterIndex]} closeModal={() => setSelectedCharacterIndex(null)} />
+        )}
         {show === "map" &&
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <h2 style={{margin: '0 0 1em 0'}}>MAPA:</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h2 style={{ margin: '0 0 1em 0' }}>MAPA:</h2>
             <MapContainer center={position} zoom={19} scrollWheelZoom={false} style={{ width: '50em', height: '50em' }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -119,7 +116,6 @@ function App() {
         }
       </div>
       {showAlert && <Alert message="Esta página não contém este personagem" onClose={handleCloseAlert} />}
-      {isModalOpen && selectedCharacter && <Modal character={selectedCharacter} closeModal={() => setIsModalOpen(false)} />}
     </>
   );
 }
