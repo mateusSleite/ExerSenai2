@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tilt } from 'react-tilt'
-import style from './App.module.css';
+import style from '../App.module.css';
 
 const Modal = ({ character, closeModal }) => {
 

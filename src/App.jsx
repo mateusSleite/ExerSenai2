@@ -5,7 +5,7 @@ import { Card } from './components/Card';
 import { CardData } from './components/CardData';
 import { Alert } from './components/Alert';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import Modal from './Modal';
+import Modal from './components/Modal';
 import style from './App.module.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
