@@ -6,7 +6,7 @@ const Modal = ({ character, closeModal }) => {
 
   const defaultOptions = {
     reverse:        false,  // inverter a direção da inclinação
-    max:            35,     // máxima rotação de inclinação (graus)
+    max:            25,     // máxima rotação de inclinação (graus)
     perspective:    1000,   // perspectiva de transformação, quanto menor, mais extrema a inclinação fica
     scale:          1.1,    // 2 = 200%, 1.5 = 150%, etc.
     speed:          1000,   // velocidade da transição de entrada/saída
